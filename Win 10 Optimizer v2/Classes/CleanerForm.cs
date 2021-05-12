@@ -41,7 +41,7 @@ namespace Win_10_Optimizer_v2.Classes
             }
             cleaner.UpdateDataBase();
             this.label1.Text = "База данных: " + cleaner.DataBase.Count();
-            this.label2.Text = "Логи | " + cleaner.GetByType("Logs");
+            this.label2.Text = "Логи | " + cleaner.GetByType("Logs").Count();
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)

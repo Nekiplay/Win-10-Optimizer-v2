@@ -17,7 +17,7 @@ namespace Win_10_Optimizer_v2.Classes
             List<ClearSettings> temp = new List<ClearSettings>();
             foreach (ClearSettings cl in DataBase)
             {
-                if (cl.Type == Type)
+                if (cl.Type == Type || cl.Type == "All")
                 {
                     temp.Add(cl);
                 }
