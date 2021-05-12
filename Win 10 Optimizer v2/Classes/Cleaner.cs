@@ -19,6 +19,7 @@ namespace Win_10_Optimizer_v2.Classes
             {
                 string responce = wc.DownloadString("https://raw.githubusercontent.com/Nekiplay/Win-10-Optimizer-v2-DataBase/main/CleanerFiles.lua");
                 string[] splited = responce.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                Logs.Clear();
                 foreach (string sp in splited)
                 {
                     if (sp.StartsWith("{") && sp.EndsWith("}") && !sp.StartsWith("//") && !sp.StartsWith("/*"))
@@ -28,11 +29,6 @@ namespace Win_10_Optimizer_v2.Classes
                         string expansion = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[3].Value;
                         string mode = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[4].Value;
                         string type = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[5].Value;
-                        Console.WriteLine(filepath);
-                        Console.WriteLine(dirpath);
-                        Console.WriteLine(expansion);
-                        Console.WriteLine(mode);
-                        Console.WriteLine(type);
                         if (type == "Logs")
                         {
                             Logs.Add(new ClearSettings(filepath, dirpath, expansion, mode));

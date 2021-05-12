@@ -31,6 +31,7 @@ namespace Win_10_Optimizer_v2.Classes
         {
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // guna2Button1
@@ -63,17 +64,28 @@ namespace Win_10_Optimizer_v2.Classes
             this.guna2Button2.Text = "Work";
             this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(136, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
+            // 
             // CleanerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.guna2Button2);
             this.Controls.Add(this.guna2Button1);
             this.Name = "CleanerForm";
             this.Text = "CleanerForm";
             this.Load += new System.EventHandler(this.CleanerForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -81,5 +93,6 @@ namespace Win_10_Optimizer_v2.Classes
 
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private System.Windows.Forms.Label label1;
     }
 }

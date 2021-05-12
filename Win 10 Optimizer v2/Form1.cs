@@ -50,5 +50,15 @@ namespace Win_10_Optimizer_v2
         {
             OpenChildForm(cleanerform, false);
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.FormBorderStyle = FormBorderStyle.None;
+        }
+
+        private void guna2RadioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
