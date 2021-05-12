@@ -27,5 +27,13 @@ namespace Win_10_Optimizer_v2.Classes
         {
 
         }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            foreach (Cleaner.ClearSettings setting in cleaner.Logs)
+            {
+                setting.Clear();
+            }
+        }
     }
 }

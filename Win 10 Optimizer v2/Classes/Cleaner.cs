@@ -11,7 +11,7 @@ namespace Win_10_Optimizer_v2.Classes
 {
     public class Cleaner
     {
-        private readonly List<ClearSettings> Logs = new List<ClearSettings>();
+        public readonly List<ClearSettings> Logs = new List<ClearSettings>();
 
         public void UpdateDataBase()
         {
@@ -21,23 +21,19 @@ namespace Win_10_Optimizer_v2.Classes
                 string[] splited = responce.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string sp in splited)
                 {
-                    string filepath = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[1].Value;
-                    string dirpath = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[2].Value;
-                    string expansion = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[3].Value;
-                    string mode = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[4].Value;
-                    string type = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[5].Value;
+                    string filepath = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[1].Value;
+                    string dirpath = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[2].Value;
+                    string expansion = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[3].Value;
+                    string mode = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[4].Value;
+                    string type = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[5].Value;
                     Console.WriteLine(filepath);
                     Console.WriteLine(dirpath);
                     Console.WriteLine(expansion);
                     Console.WriteLine(mode);
                     Console.WriteLine(type);
-                    if (mode == "Files")
+                    if (type == "Logs")
                     {
-
-                    } 
-                    else if (mode == "Directory")
-                    {
-
+                        Logs.Add(new ClearSettings(filepath, dirpath, expansion, mode));
                     }
                 }
             }
@@ -49,7 +45,6 @@ namespace Win_10_Optimizer_v2.Classes
             public string FilePath;
             public string Expansion;
 
-
             public string DirectoryPath;
             public Modes Mode;
             public enum Modes
@@ -57,16 +52,38 @@ namespace Win_10_Optimizer_v2.Classes
                 Files,
                 Directory,
             }
+            public ClearSettings(string FilePath, string DirectoryPath, string Expansion, Modes Mode)
+            {
+                this.FilePath = FilePath;
+                this.DirectoryPath = DirectoryPath;
+                this.Expansion = Expansion;
+                this.Mode = Mode;
+            }
+
+            public ClearSettings(string FilePath, string DirectoryPath, string Expansion, string Mode)
+            {
+                this.FilePath = FilePath;
+                this.DirectoryPath = DirectoryPath;
+                this.Expansion = Expansion;
+                if (Mode == Modes.Directory.ToString())
+                {
+                    this.Mode = Modes.Directory;
+                }
+                else if (Mode == Modes.Files.ToString())
+                {
+                    this.Mode = Modes.Files;
+                }
+            }
             public bool IsExists
             {
                 get
                 {
-                    if (Mode == Modes.Files)
+                    if (Mode == Modes.Files && !string.IsNullOrEmpty(FilePath))
                     {
                         if (File.Exists(FilePath)) { return true; }
                         else { return false; }
                     }
-                    else if (Mode == Modes.Directory)
+                    else if (Mode == Modes.Directory && !string.IsNullOrEmpty(DirectoryPath))
                     {
                         if (Directory.Exists(DirectoryPath)) { return true; }
                         else { return false; }
@@ -76,7 +93,7 @@ namespace Win_10_Optimizer_v2.Classes
             }
             public void Clear()
             {
-                if (IsExists && Mode == Modes.Files)
+                if (IsExists && Mode == Modes.Files && !string.IsNullOrEmpty(FilePath))
                 {
                     var result = System.IO.Directory.EnumerateFiles(FilePath, Expansion);
                     if (result.Count() != 0)
@@ -92,7 +109,7 @@ namespace Win_10_Optimizer_v2.Classes
                         }
                     }
                 }
-                else if (IsExists && Mode == Modes.Directory)
+                else if (IsExists && Mode == Modes.Directory && !string.IsNullOrEmpty(DirectoryPath))
                 {
                     System.IO.DirectoryInfo myDirInfo = new System.IO.DirectoryInfo(DirectoryPath);
                     foreach (System.IO.FileInfo file in myDirInfo.GetFiles()) 
