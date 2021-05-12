@@ -59,6 +59,7 @@ namespace Win_10_Optimizer_v2.Classes
                 Label text = new Label();
                 text.Text = cst2 + " | " + cleaner.GetByType(cst2).Count();
                 text.ForeColor = Color.Black;
+                text.Font = new Font("Segoe UI", 9, FontStyle.Bold);
                 text.Location = new Point(55, 30 + offset);
                 offset += 23;
                 CstBut ct = new CstBut();
