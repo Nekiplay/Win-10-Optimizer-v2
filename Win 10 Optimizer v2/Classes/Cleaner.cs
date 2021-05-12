@@ -44,6 +44,8 @@ namespace Win_10_Optimizer_v2.Classes
                         filepath = filepath.Replace("%appdata%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString());
                         filepath = filepath.Replace("%user%", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).ToString());
                         filepath = filepath.Replace("%mydocs%", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString());
+                        filepath = filepath.Replace("%windows%", Environment.GetFolderPath(Environment.SpecialFolder.Windows).ToString());
+                        filepath = filepath.Replace("%internetcache%", Environment.GetFolderPath(Environment.SpecialFolder.InternetCache).ToString());
                         DataBase.Add(new ClearSettings(filepath, dirpath, expansion, mode, type));
                     }
                 }
