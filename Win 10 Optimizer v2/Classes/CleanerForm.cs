@@ -21,6 +21,18 @@ namespace Win_10_Optimizer_v2.Classes
         {
             Update();
         }
+        public static string BytesToString(long byteCount)
+        {
+            string[] suf = { "Byte", "KB", "MB", "GB", "TB", "PB", "EB" }; //
+            if (byteCount == 0)
+            {
+                return "0" + suf[0];
+            }
+            long bytes = Math.Abs(byteCount);
+            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+            return (Math.Sign(byteCount) * num).ToString() + suf[place];
+        }
         private void Update()
         {
             if (cleaner == null)
@@ -28,7 +40,7 @@ namespace Win_10_Optimizer_v2.Classes
                 cleaner = new Cleaner();
             }
             cleaner.UpdateDataBase();
-            this.label1.Text = "DataBase: " + cleaner.Logs.Count();
+            this.label1.Text = "Total DataBase: " + cleaner.Logs.Count();
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -38,10 +50,15 @@ namespace Win_10_Optimizer_v2.Classes
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
-            foreach (Cleaner.ClearSettings setting in cleaner.Logs)
+            long cleared = 0;
+            if (guna2ToggleSwitch1.Checked == true)
             {
-                setting.Clear();
+                foreach (Cleaner.ClearSettings setting in cleaner.Logs)
+                {
+                    cleared += setting.Clear();
+                }
             }
+            Console.WriteLine("Удалено: " + BytesToString(cleared));
         }
     }
 }

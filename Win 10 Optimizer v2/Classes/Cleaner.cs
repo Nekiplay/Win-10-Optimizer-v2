@@ -17,7 +17,7 @@ namespace Win_10_Optimizer_v2.Classes
         {
             using (WebClient wc = new WebClient())
             {
-                string responce = wc.DownloadString("https://raw.githubusercontent.com/Nekiplay/Win-10-Optimizer-v2-DataBase/main/CleanerFiles.lua");
+                string responce = wc.DownloadString("https://raw.githubusercontent.com/Nekiplay/Win-10-Optimizer-v2-DataBase/main/CleanerFiles.js");
                 string[] splited = responce.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 Logs.Clear();
                 foreach (string sp in splited)
@@ -29,8 +29,10 @@ namespace Win_10_Optimizer_v2.Classes
                         string expansion = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[3].Value;
                         string mode = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[4].Value;
                         string type = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[5].Value;
+                        filepath = filepath.Replace("%appdata%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString());
                         if (type == "Logs")
                         {
+                            Console.WriteLine(filepath);
                             Logs.Add(new ClearSettings(filepath, dirpath, expansion, mode));
                         }
                     }
@@ -79,7 +81,7 @@ namespace Win_10_Optimizer_v2.Classes
                 {
                     if (Mode == Modes.Files && !string.IsNullOrEmpty(FilePath))
                     {
-                        if (File.Exists(FilePath)) { return true; }
+                        if (Directory.Exists(FilePath)) { return true; }
                         else { return false; }
                     }
                     else if (Mode == Modes.Directory && !string.IsNullOrEmpty(DirectoryPath))
@@ -90,8 +92,9 @@ namespace Win_10_Optimizer_v2.Classes
                     else { return false; }
                 }
             }
-            public void Clear()
+            public long Clear()
             {
+                long bytesdeleted = 0;
                 if (IsExists && Mode == Modes.Files && !string.IsNullOrEmpty(FilePath))
                 {
                     var result = System.IO.Directory.EnumerateFiles(FilePath, Expansion);
@@ -102,6 +105,7 @@ namespace Win_10_Optimizer_v2.Classes
                             try
                             {
                                 System.IO.FileInfo file = new System.IO.FileInfo(m);
+                                bytesdeleted += file.Length;
                                 System.IO.File.Delete(m);
                             }
                             catch { }
@@ -114,7 +118,8 @@ namespace Win_10_Optimizer_v2.Classes
                     foreach (System.IO.FileInfo file in myDirInfo.GetFiles()) 
                     { 
                         try 
-                        { 
+                        {
+                            bytesdeleted += file.Length;
                             file.Delete(); 
                         } catch { } 
                     }
@@ -128,6 +133,7 @@ namespace Win_10_Optimizer_v2.Classes
                     }
                     try { System.IO.Directory.Delete(DirectoryPath, true); } catch { }
                 }
+                return bytesdeleted;
             }
         }
     }
