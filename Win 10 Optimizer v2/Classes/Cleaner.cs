@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Win_10_Optimizer_v2.Classes
@@ -16,7 +17,29 @@ namespace Win_10_Optimizer_v2.Classes
         {
             using (WebClient wc = new WebClient())
             {
+                string responce = wc.DownloadString("https://raw.githubusercontent.com/Nekiplay/Win-10-Optimizer-v2-DataBase/main/CleanerFiles.lua");
+                string[] splited = responce.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string sp in splited)
+                {
+                    string filepath = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[1].Value;
+                    string dirpath = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[2].Value;
+                    string expansion = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[3].Value;
+                    string mode = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[4].Value;
+                    string type = Regex.Match(sp, "{\"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\"}").Groups[5].Value;
+                    Console.WriteLine(filepath);
+                    Console.WriteLine(dirpath);
+                    Console.WriteLine(expansion);
+                    Console.WriteLine(mode);
+                    Console.WriteLine(type);
+                    if (mode == "Files")
+                    {
 
+                    } 
+                    else if (mode == "Directory")
+                    {
+
+                    }
+                }
             }
         }
 

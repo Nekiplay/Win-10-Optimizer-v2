@@ -45,7 +45,7 @@ namespace Win_10_Optimizer_v2
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 46);
+            this.panel1.Size = new System.Drawing.Size(800, 40);
             this.panel1.TabIndex = 0;
             // 
             // panel2
@@ -53,9 +53,9 @@ namespace Win_10_Optimizer_v2
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(51)))), ((int)(((byte)(61)))));
             this.panel2.Controls.Add(this.guna2Button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 46);
+            this.panel2.Location = new System.Drawing.Point(0, 40);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(130, 404);
+            this.panel2.Size = new System.Drawing.Size(130, 410);
             this.panel2.TabIndex = 1;
             // 
             // guna2Button1
@@ -71,14 +71,15 @@ namespace Win_10_Optimizer_v2
             this.guna2Button1.ShadowDecoration.Parent = this.guna2Button1;
             this.guna2Button1.Size = new System.Drawing.Size(130, 24);
             this.guna2Button1.TabIndex = 2;
-            this.guna2Button1.Text = "guna2Button1";
+            this.guna2Button1.Text = "Cleaner";
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 15);
             this.label1.TabIndex = 0;
@@ -89,9 +90,9 @@ namespace Win_10_Optimizer_v2
             // 
             this.panelDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(6)))), ((int)(((byte)(6)))));
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDesktop.Location = new System.Drawing.Point(130, 46);
+            this.panelDesktop.Location = new System.Drawing.Point(130, 40);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(670, 404);
+            this.panelDesktop.Size = new System.Drawing.Size(670, 410);
             this.panelDesktop.TabIndex = 2;
             // 
             // Form1

@@ -16,5 +16,16 @@ namespace Win_10_Optimizer_v2.Classes
         {
             InitializeComponent();
         }
+        Cleaner cleaner;
+        private void CleanerForm_Load(object sender, EventArgs e)
+        {
+            cleaner = new Cleaner();
+            cleaner.UpdateDataBase();
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

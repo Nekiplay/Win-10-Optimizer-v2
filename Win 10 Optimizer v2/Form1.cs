@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Win_10_Optimizer_v2.Classes;
 
 namespace Win_10_Optimizer_v2
 {
@@ -15,6 +16,39 @@ namespace Win_10_Optimizer_v2
         public Form1()
         {
             InitializeComponent();
+        }
+        private Form currentChildForm;
+        private string currentChildFormname;
+        public void OpenChildForm(Form childForm, bool newform = false)
+        {
+            if (currentChildForm != childForm && currentChildFormname != childForm.Name)
+            {
+                //open only form
+                if (currentChildForm != null)
+                {
+                    if (newform)
+                    {
+                        currentChildForm.Close();
+                    }
+                    panelDesktop.Controls.Clear();
+                }
+                currentChildForm = childForm;
+                currentChildFormname = childForm.Name;
+                //End
+                childForm.BackColor = panelDesktop.BackColor;
+                childForm.TopLevel = false;
+                childForm.FormBorderStyle = FormBorderStyle.None;
+                childForm.Dock = DockStyle.Fill;
+                panelDesktop.Controls.Add(childForm);
+                panelDesktop.Tag = childForm;
+                childForm.BringToFront();
+                childForm.Show();
+            }
+        }
+        CleanerForm cleanerform = new CleanerForm();
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(cleanerform, false);
         }
     }
 }
