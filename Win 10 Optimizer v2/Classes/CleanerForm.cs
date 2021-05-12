@@ -40,7 +40,8 @@ namespace Win_10_Optimizer_v2.Classes
                 cleaner = new Cleaner();
             }
             cleaner.UpdateDataBase();
-            this.label1.Text = "Total DataBase: " + cleaner.Logs.Count();
+            this.label1.Text = "База данных: " + cleaner.DataBase.Count();
+            this.label2.Text = "Логи | " + cleaner.GetByType("Logs");
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -53,7 +54,7 @@ namespace Win_10_Optimizer_v2.Classes
             long cleared = 0;
             if (guna2ToggleSwitch1.Checked == true)
             {
-                foreach (Cleaner.ClearSettings setting in cleaner.Logs)
+                foreach (Cleaner.ClearSettings setting in cleaner.GetByType("Logs"))
                 {
                     cleared += setting.Clear();
                 }

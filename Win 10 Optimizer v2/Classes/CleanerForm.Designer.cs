@@ -46,12 +46,12 @@ namespace Win_10_Optimizer_v2.Classes
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.guna2Button1.ForeColor = System.Drawing.Color.Black;
             this.guna2Button1.HoverState.Parent = this.guna2Button1;
-            this.guna2Button1.Location = new System.Drawing.Point(99, 86);
+            this.guna2Button1.Location = new System.Drawing.Point(12, 115);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.ShadowDecoration.Parent = this.guna2Button1;
             this.guna2Button1.Size = new System.Drawing.Size(70, 23);
             this.guna2Button1.TabIndex = 0;
-            this.guna2Button1.Text = "Update";
+            this.guna2Button1.Text = "Обновить";
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
             // guna2Button2
@@ -64,12 +64,12 @@ namespace Win_10_Optimizer_v2.Classes
             this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.guna2Button2.ForeColor = System.Drawing.Color.Black;
             this.guna2Button2.HoverState.Parent = this.guna2Button2;
-            this.guna2Button2.Location = new System.Drawing.Point(12, 86);
+            this.guna2Button2.Location = new System.Drawing.Point(6, 86);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.ShadowDecoration.Parent = this.guna2Button2;
             this.guna2Button2.Size = new System.Drawing.Size(81, 23);
             this.guna2Button2.TabIndex = 1;
-            this.guna2Button2.Text = "Clear";
+            this.guna2Button2.Text = "Очистить";
             this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
             // 
             // label1
@@ -79,9 +79,9 @@ namespace Win_10_Optimizer_v2.Classes
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 15);
+            this.label1.Size = new System.Drawing.Size(93, 15);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Total DataBase: 0";
+            this.label1.Text = "База данных: 0";
             // 
             // guna2ToggleSwitch1
             // 
@@ -108,16 +108,16 @@ namespace Win_10_Optimizer_v2.Classes
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(51, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 15);
+            this.label2.Size = new System.Drawing.Size(36, 15);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Logs";
+            this.label2.Text = "Логи";
             // 
             // CleanerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(179, 121);
+            this.ClientSize = new System.Drawing.Size(120, 141);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.guna2ToggleSwitch1);
             this.Controls.Add(this.label1);

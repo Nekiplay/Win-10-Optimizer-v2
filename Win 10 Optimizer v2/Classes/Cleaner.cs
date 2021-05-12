@@ -11,15 +11,26 @@ namespace Win_10_Optimizer_v2.Classes
 {
     public class Cleaner
     {
-        public readonly List<ClearSettings> Logs = new List<ClearSettings>();
-
+        public readonly List<ClearSettings> DataBase = new List<ClearSettings>();
+        public List<ClearSettings> GetByType(string Type)
+        {
+            List<ClearSettings> temp = new List<ClearSettings>();
+            foreach (ClearSettings cl in DataBase)
+            {
+                if (cl.Type == Type)
+                {
+                    temp.Add(cl);
+                }
+            }
+            return temp;
+        }
         public void UpdateDataBase()
         {
             using (WebClient wc = new WebClient())
             {
                 string responce = wc.DownloadString("https://raw.githubusercontent.com/Nekiplay/Win-10-Optimizer-v2-DataBase/main/CleanerFiles.js");
                 string[] splited = responce.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                Logs.Clear();
+                DataBase.Clear();
                 foreach (string sp in splited)
                 {
                     if (sp.StartsWith("{") && sp.EndsWith("}") && !sp.StartsWith("//") && !sp.StartsWith("/*"))
@@ -30,11 +41,8 @@ namespace Win_10_Optimizer_v2.Classes
                         string mode = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[4].Value;
                         string type = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[5].Value;
                         filepath = filepath.Replace("%appdata%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString());
-                        if (type == "Logs")
-                        {
-                            Console.WriteLine(filepath);
-                            Logs.Add(new ClearSettings(filepath, dirpath, expansion, mode));
-                        }
+                        filepath = filepath.Replace("%user%", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).ToString());
+                        DataBase.Add(new ClearSettings(filepath, dirpath, expansion, mode, type));
                     }
                 }
             }
@@ -42,6 +50,7 @@ namespace Win_10_Optimizer_v2.Classes
 
         public class ClearSettings
         {
+            public string Type;
             /* File Settings */
             public string FilePath;
             public string Expansion;
@@ -53,15 +62,16 @@ namespace Win_10_Optimizer_v2.Classes
                 Files,
                 Directory,
             }
-            public ClearSettings(string FilePath, string DirectoryPath, string Expansion, Modes Mode)
+            public ClearSettings(string FilePath, string DirectoryPath, string Expansion, Modes Mode, string Type)
             {
                 this.FilePath = FilePath;
                 this.DirectoryPath = DirectoryPath;
                 this.Expansion = Expansion;
                 this.Mode = Mode;
+                this.Type = Type;
             }
 
-            public ClearSettings(string FilePath, string DirectoryPath, string Expansion, string Mode)
+            public ClearSettings(string FilePath, string DirectoryPath, string Expansion, string Mode, string Type)
             {
                 this.FilePath = FilePath;
                 this.DirectoryPath = DirectoryPath;
@@ -74,6 +84,7 @@ namespace Win_10_Optimizer_v2.Classes
                 {
                     this.Mode = Modes.Files;
                 }
+                this.Type = Type;
             }
             public bool IsExists
             {
