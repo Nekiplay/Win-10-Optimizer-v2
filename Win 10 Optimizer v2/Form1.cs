@@ -66,5 +66,10 @@ namespace Win_10_Optimizer_v2
         {
 
         }
+
+        private void guna2GradientButton1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

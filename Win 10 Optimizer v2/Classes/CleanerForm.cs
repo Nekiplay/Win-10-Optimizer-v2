@@ -52,6 +52,7 @@ namespace Win_10_Optimizer_v2.Classes
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
+            NotificationManager.Manager manager = new NotificationManager.Manager();
             long cleared = 0;
             if (guna2ToggleSwitch1.Checked == true)
             {
@@ -67,7 +68,7 @@ namespace Win_10_Optimizer_v2.Classes
                     cleared += setting.Clear();
                 }
             }
-            Console.WriteLine("Удалено: " + BytesToString(cleared));
+            manager.Alert("Удалено: " + BytesToString(cleared), NotificationManager.NotificationType.Success);
         }
     }
 }
