@@ -42,6 +42,7 @@ namespace Win_10_Optimizer_v2.Classes
                         string type = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[5].Value;
                         filepath = filepath.Replace("%appdata%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString());
                         filepath = filepath.Replace("%user%", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).ToString());
+                        filepath = filepath.Replace("%mydocs%", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString());
                         DataBase.Add(new ClearSettings(filepath, dirpath, expansion, mode, type));
                     }
                 }
