@@ -53,7 +53,6 @@ namespace Win_10_Optimizer_v2.Classes
             {
                 if (!buttons_texts.Contains(st.Type))
                 {
-                    Console.WriteLine(st.Type);
                     buttons_texts.Add(st.Type);
                 }
             }
