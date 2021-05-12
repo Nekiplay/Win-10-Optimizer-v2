@@ -28,6 +28,7 @@ namespace Win_10_Optimizer_v2.Classes
         {
             using (WebClient wc = new WebClient())
             {
+                wc.Encoding = Encoding.UTF8;
                 string responce = wc.DownloadString("https://raw.githubusercontent.com/Nekiplay/Win-10-Optimizer-v2-DataBase/main/CleanerFiles.js");
                 string[] splited = responce.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 DataBase.Clear();

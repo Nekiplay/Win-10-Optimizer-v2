@@ -40,19 +40,42 @@ namespace Win_10_Optimizer_v2.Classes
             {
                 cleaner = new Cleaner();
             }
+            bts.Clear();
             cleaner.UpdateDataBase();
             this.label1.Text = "База данных: " + cleaner.DataBase.Count();
-            this.label2.Text = "Логи | " + cleaner.GetByType("Логи").Count();
-            this.label3.Text = "Кеш | " + cleaner.GetByType("Кеш").Count();
-            foreach (Cleaner.ClearSettings st in cleaner.DataBase)
+            foreach (Cleaner.ClearSettings st in cleaner.DataBase)  
             {
                 if (!buttons_texts.Contains(st.Type))
                 {
+                    Console.WriteLine(st.Type);
                     buttons_texts.Add(st.Type);
                 }
-            }    
+            }
+            int offset = 0;
+            foreach (string cst2 in buttons_texts)
+            {
+                Guna.UI2.WinForms.Guna2ToggleSwitch guna2 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+                guna2.Location = new Point(15, 27 + offset);
+                Label text = new Label();
+                text.Text = cst2 + " | " + cleaner.GetByType(cst2).Count();
+                text.ForeColor = Color.Black;
+                text.Location = new Point(55, 30 + offset);
+                offset += 23;
+                CstBut ct = new CstBut();
+                ct.Type = cst2;
+                ct.Switch = guna2;
+                bts.Add(ct);
+                this.Controls.Add(text);
+                this.Controls.Add(guna2);
+            }
+            this.guna2Button2.Location = new Point(15, 27 + offset);
         }
-
+        public List<CstBut> bts = new List<CstBut>();
+        public class CstBut
+        {
+            public string Type;
+            public Guna.UI2.WinForms.Guna2ToggleSwitch Switch;
+        }
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             Update();
@@ -62,18 +85,14 @@ namespace Win_10_Optimizer_v2.Classes
         {
             NotificationManager.Manager manager = new NotificationManager.Manager();
             long cleared = 0;
-            if (guna2ToggleSwitch1.Checked == true)
+            foreach (CstBut bt in bts)
             {
-                foreach (Cleaner.ClearSettings setting in cleaner.GetByType("Логи"))
+                if (bt.Switch.Checked == true)
                 {
-                    cleared += setting.Clear();
-                }
-            }
-            if (guna2ToggleSwitch2.Checked == true)
-            {
-                foreach (Cleaner.ClearSettings setting in cleaner.GetByType("Кеш"))
-                {
-                    cleared += setting.Clear();
+                    foreach (Cleaner.ClearSettings setting in cleaner.GetByType(bt.Type))
+                    {
+                        cleared += setting.Clear();
+                    }
                 }
             }
             manager.Alert("Удалено: " + BytesToString(cleared), NotificationManager.NotificationType.Success);
