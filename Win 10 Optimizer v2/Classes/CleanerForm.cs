@@ -40,7 +40,13 @@ namespace Win_10_Optimizer_v2.Classes
             {
                 cleaner = new Cleaner();
             }
+            foreach (CstBut butrem in bts)
+            {
+                this.Controls.Remove(butrem.Switch);
+                this.Controls.Remove(butrem.label);
+            }
             bts.Clear();
+            buttons_texts.Clear();
             cleaner.UpdateDataBase();
             this.label1.Text = "База данных: " + cleaner.DataBase.Count();
             foreach (Cleaner.ClearSettings st in cleaner.DataBase)  
@@ -65,17 +71,20 @@ namespace Win_10_Optimizer_v2.Classes
                 CstBut ct = new CstBut();
                 ct.Type = cst2;
                 ct.Switch = guna2;
+                ct.label = text;
                 bts.Add(ct);
                 this.Controls.Add(text);
                 this.Controls.Add(guna2);
             }
             this.guna2Button2.Location = new Point(15, 27 + offset);
+            this.guna2Button1.Location = new Point(15, 27 + offset + 27);
         }
         public List<CstBut> bts = new List<CstBut>();
         public class CstBut
         {
             public string Type;
             public Guna.UI2.WinForms.Guna2ToggleSwitch Switch;
+            public Label label;
         }
         private void guna2Button1_Click(object sender, EventArgs e)
         {
@@ -94,9 +103,15 @@ namespace Win_10_Optimizer_v2.Classes
                     {
                         cleared += setting.Clear();
                     }
+                    bt.Switch.Checked = false;
                 }
             }
             manager.Alert("Удалено: " + BytesToString(cleared), NotificationManager.NotificationType.Success);
+        }
+
+        private void guna2Button1_Click_1(object sender, EventArgs e)
+        {
+            Update();
         }
     }
 }
