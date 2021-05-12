@@ -16,6 +16,7 @@ namespace Win_10_Optimizer_v2.Classes
         {
             InitializeComponent();
         }
+        List<string> buttons_texts = new List<string>();
         Cleaner cleaner = null;
         private void CleanerForm_Load(object sender, EventArgs e)
         {
@@ -41,8 +42,15 @@ namespace Win_10_Optimizer_v2.Classes
             }
             cleaner.UpdateDataBase();
             this.label1.Text = "База данных: " + cleaner.DataBase.Count();
-            this.label2.Text = "Логи | " + cleaner.GetByType("Logs").Count();
-            this.label3.Text = "Кеш | " + cleaner.GetByType("Cache").Count();
+            this.label2.Text = "Логи | " + cleaner.GetByType("Логи").Count();
+            this.label3.Text = "Кеш | " + cleaner.GetByType("Кеш").Count();
+            foreach (Cleaner.ClearSettings st in cleaner.DataBase)
+            {
+                if (!buttons_texts.Contains(st.Type))
+                {
+                    buttons_texts.Add(st.Type);
+                }
+            }    
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -56,14 +64,14 @@ namespace Win_10_Optimizer_v2.Classes
             long cleared = 0;
             if (guna2ToggleSwitch1.Checked == true)
             {
-                foreach (Cleaner.ClearSettings setting in cleaner.GetByType("Logs"))
+                foreach (Cleaner.ClearSettings setting in cleaner.GetByType("Логи"))
                 {
                     cleared += setting.Clear();
                 }
             }
             if (guna2ToggleSwitch2.Checked == true)
             {
-                foreach (Cleaner.ClearSettings setting in cleaner.GetByType("Cache"))
+                foreach (Cleaner.ClearSettings setting in cleaner.GetByType("Кеш"))
                 {
                     cleared += setting.Clear();
                 }

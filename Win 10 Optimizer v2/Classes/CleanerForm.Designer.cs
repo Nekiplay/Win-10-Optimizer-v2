@@ -48,7 +48,7 @@ namespace Win_10_Optimizer_v2.Classes
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.guna2Button1.ForeColor = System.Drawing.Color.Black;
             this.guna2Button1.HoverState.Parent = this.guna2Button1;
-            this.guna2Button1.Location = new System.Drawing.Point(10, 117);
+            this.guna2Button1.Location = new System.Drawing.Point(15, 108);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.ShadowDecoration.Parent = this.guna2Button1;
             this.guna2Button1.Size = new System.Drawing.Size(95, 23);
@@ -66,7 +66,7 @@ namespace Win_10_Optimizer_v2.Classes
             this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.guna2Button2.ForeColor = System.Drawing.Color.Black;
             this.guna2Button2.HoverState.Parent = this.guna2Button2;
-            this.guna2Button2.Location = new System.Drawing.Point(10, 88);
+            this.guna2Button2.Location = new System.Drawing.Point(15, 79);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.ShadowDecoration.Parent = this.guna2Button2;
             this.guna2Button2.Size = new System.Drawing.Size(95, 23);
@@ -148,7 +148,7 @@ namespace Win_10_Optimizer_v2.Classes
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(197, 155);
+            this.ClientSize = new System.Drawing.Size(197, 141);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.guna2ToggleSwitch2);
             this.Controls.Add(this.label1);
