@@ -42,6 +42,7 @@ namespace Win_10_Optimizer_v2.Classes
             cleaner.UpdateDataBase();
             this.label1.Text = "База данных: " + cleaner.DataBase.Count();
             this.label2.Text = "Логи | " + cleaner.GetByType("Logs").Count();
+            this.label3.Text = "Кеш | " + cleaner.GetByType("Cache").Count();
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -55,6 +56,13 @@ namespace Win_10_Optimizer_v2.Classes
             if (guna2ToggleSwitch1.Checked == true)
             {
                 foreach (Cleaner.ClearSettings setting in cleaner.GetByType("Logs"))
+                {
+                    cleared += setting.Clear();
+                }
+            }
+            if (guna2ToggleSwitch2.Checked == true)
+            {
+                foreach (Cleaner.ClearSettings setting in cleaner.GetByType("Cache"))
                 {
                     cleared += setting.Clear();
                 }
