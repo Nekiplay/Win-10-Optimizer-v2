@@ -21,19 +21,22 @@ namespace Win_10_Optimizer_v2.Classes
                 string[] splited = responce.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string sp in splited)
                 {
-                    string filepath = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[1].Value;
-                    string dirpath = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[2].Value;
-                    string expansion = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[3].Value;
-                    string mode = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[4].Value;
-                    string type = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[5].Value;
-                    Console.WriteLine(filepath);
-                    Console.WriteLine(dirpath);
-                    Console.WriteLine(expansion);
-                    Console.WriteLine(mode);
-                    Console.WriteLine(type);
-                    if (type == "Logs")
+                    if (sp.StartsWith("{") && sp.EndsWith("}") && !sp.StartsWith("//") && !sp.StartsWith("/*"))
                     {
-                        Logs.Add(new ClearSettings(filepath, dirpath, expansion, mode));
+                        string filepath = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[1].Value;
+                        string dirpath = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[2].Value;
+                        string expansion = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[3].Value;
+                        string mode = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[4].Value;
+                        string type = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[5].Value;
+                        Console.WriteLine(filepath);
+                        Console.WriteLine(dirpath);
+                        Console.WriteLine(expansion);
+                        Console.WriteLine(mode);
+                        Console.WriteLine(type);
+                        if (type == "Logs")
+                        {
+                            Logs.Add(new ClearSettings(filepath, dirpath, expansion, mode));
+                        }
                     }
                 }
             }
