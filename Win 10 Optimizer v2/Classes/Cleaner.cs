@@ -55,7 +55,6 @@ namespace Win_10_Optimizer_v2.Classes
                         string expansion = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[3].Value;
                         string mode = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[4].Value;
                         string type = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[5].Value;
-                        Console.WriteLine(type);
                         filepath = filepath.Replace("%appdata%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString());
                         filepath = filepath.Replace("%user%", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).ToString());
                         filepath = filepath.Replace("%mydocs%", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString());
