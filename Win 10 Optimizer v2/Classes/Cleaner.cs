@@ -117,13 +117,16 @@ namespace Win_10_Optimizer_v2.Classes
                     {
                         foreach (var m in result)
                         {
+                            System.IO.FileInfo file = new System.IO.FileInfo(m);
                             try
                             {
-                                System.IO.FileInfo file = new System.IO.FileInfo(m);
                                 bytesdeleted += file.Length;
                                 System.IO.File.Delete(m);
                             }
-                            catch { }
+                            catch 
+                            {
+                                bytesdeleted -= file.Length;
+                            }
                         }
                     }
                 }
@@ -136,7 +139,11 @@ namespace Win_10_Optimizer_v2.Classes
                         {
                             bytesdeleted += file.Length;
                             file.Delete(); 
-                        } catch { } 
+                        } 
+                        catch
+                        {
+                            bytesdeleted -= file.Length;
+                        } 
                     }
                     foreach (System.IO.DirectoryInfo diri in myDirInfo.GetDirectories()) 
                     { 

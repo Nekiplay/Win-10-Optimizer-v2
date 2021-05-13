@@ -90,21 +90,25 @@ namespace Win_10_Optimizer_v2.Classes
             Update();
         }
 
-        private void guna2Button2_Click(object sender, EventArgs e)
+        private async void guna2Button2_Click(object sender, EventArgs e)
         {
             NotificationManager.Manager manager = new NotificationManager.Manager();
             long cleared = 0;
-            foreach (CstBut bt in bts)
+            Task cl = Task.Factory.StartNew(() =>
             {
-                if (bt.Switch.Checked == true)
+                foreach (CstBut bt in bts)
                 {
-                    foreach (Cleaner.ClearSettings setting in cleaner.GetByType(bt.Type))
+                    if (bt.Switch.Checked == true)
                     {
-                        cleared += setting.Clear();
+                        foreach (Cleaner.ClearSettings setting in cleaner.GetByType(bt.Type))
+                        {
+                            cleared += setting.Clear();
+                        }
+                        bt.Switch.Checked = false;
                     }
-                    bt.Switch.Checked = false;
                 }
-            }
+            });
+            await cl;
             manager.Alert("Удалено: " + BytesToString(cleared), NotificationManager.NotificationType.Success);
         }
 
