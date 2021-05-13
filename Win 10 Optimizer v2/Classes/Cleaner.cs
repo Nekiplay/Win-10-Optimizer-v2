@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,19 @@ namespace Win_10_Optimizer_v2.Classes
 {
     public class Cleaner
     {
+        public static string SteamPath
+        {
+            get
+            {
+                string steamdir = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam", "InstallPath", "Nothing");
+                if (string.IsNullOrEmpty(steamdir) || steamdir == "Nothing")
+                {
+                    steamdir = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam", "InstallPath", "Nothing");
+                }
+                return steamdir;
+            }
+        }
+
         public readonly List<ClearSettings> DataBase = new List<ClearSettings>();
         public List<ClearSettings> GetByType(string Type)
         {
@@ -41,11 +55,13 @@ namespace Win_10_Optimizer_v2.Classes
                         string expansion = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[3].Value;
                         string mode = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[4].Value;
                         string type = Regex.Match(sp, "{ \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" }").Groups[5].Value;
+                        Console.WriteLine(type);
                         filepath = filepath.Replace("%appdata%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString());
                         filepath = filepath.Replace("%user%", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).ToString());
                         filepath = filepath.Replace("%mydocs%", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString());
                         filepath = filepath.Replace("%windows%", Environment.GetFolderPath(Environment.SpecialFolder.Windows).ToString());
                         filepath = filepath.Replace("%internetcache%", Environment.GetFolderPath(Environment.SpecialFolder.InternetCache).ToString());
+                        filepath = filepath.Replace("%steam%", SteamPath);
                         DataBase.Add(new ClearSettings(filepath, dirpath, expansion, mode, type));
                     }
                 }

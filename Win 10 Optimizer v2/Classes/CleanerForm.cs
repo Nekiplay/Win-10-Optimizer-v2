@@ -62,6 +62,7 @@ namespace Win_10_Optimizer_v2.Classes
                 Guna.UI2.WinForms.Guna2ToggleSwitch guna2 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
                 guna2.Location = new Point(15, 27 + offset);
                 Label text = new Label();
+                text.AutoSize = true;
                 text.Text = cst2 + " | " + cleaner.GetByType(cst2).Count();
                 text.ForeColor = Color.Black;
                 text.Font = new Font("Segoe UI", 9, FontStyle.Bold);
@@ -92,7 +93,6 @@ namespace Win_10_Optimizer_v2.Classes
 
         private async void guna2Button2_Click(object sender, EventArgs e)
         {
-            NotificationManager.Manager manager = new NotificationManager.Manager();
             long cleared = 0;
             Task cl = Task.Factory.StartNew(() =>
             {
@@ -109,6 +109,7 @@ namespace Win_10_Optimizer_v2.Classes
                 }
             });
             await cl;
+            NotificationManager.Manager manager = new NotificationManager.Manager();
             manager.Alert("Удалено: " + BytesToString(cleared), NotificationManager.NotificationType.Success);
         }
 
